@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "movies",
-    "slug": "movies",
+    "name": "allo-movies",
+    "slug": "allo-movies",
     "platforms": [
       "ios",
       "android",
