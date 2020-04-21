@@ -56,10 +56,14 @@ class Search extends React.Component {
   _searchFilms() {
     this.page = 0;
     this.totalPages = 0;
-    this.setState({
-      films: [],
-    });
-    this._loadFilms();
+    this.setState(
+      {
+        films: [],
+      },
+      () => {
+        this._loadFilms();
+      }
+    );
   }
 
   _searchTextInputChanged(text) {
