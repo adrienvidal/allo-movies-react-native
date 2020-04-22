@@ -70,6 +70,10 @@ class Search extends React.Component {
     this.searchedText = text;
   }
 
+  _displayDetailForFilm = (idFilm) => {
+    this.props.navigation.navigate("FilmDetails", { idFilm: idFilm });
+  };
+
   render() {
     return (
       <View style={styles.main_container}>
@@ -95,7 +99,12 @@ class Search extends React.Component {
               this._loadFilms();
             }
           }}
-          renderItem={({ item }) => <FilmItem film={item} />}
+          renderItem={({ item }) => (
+            <FilmItem
+              film={item}
+              displayDetailForFilm={this._displayDetailForFilm}
+            />
+          )}
         />
         {this._displayLoading()}
       </View>
