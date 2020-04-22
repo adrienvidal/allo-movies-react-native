@@ -1,12 +1,13 @@
 // App.js
+import "react-native-gesture-handler";
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import Navigation from "./Navigation/Navigation";
 
-import React from 'react'
-import Search from './Components/Search'
-
-export default class App extends React.Component {
-  render() {
-    return (
-      <Search/>
-    )
-  }
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Navigation />
+    </NavigationContainer>
+  );
 }
