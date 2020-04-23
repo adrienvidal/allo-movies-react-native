@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   ScrollView,
   Image,
+  Button,
 } from "react-native";
 import { getFilmDetailFromApi, getImageFromApi } from "../API/TMDBApi";
 import moment from "moment";
@@ -42,6 +43,19 @@ class FilmDetail extends React.Component {
     }
   }
 
+  _toogleFavorite() {
+    const action = {
+      type: "TOGGLE_FAVORITE",
+      value: this.state.film,
+    };
+
+    this.props.dispatch(action);
+  }
+
+  componentDidUpdate() {
+    console.log("this.props.favoritesFilm", this.props.favoritesFilm);
+  }
+
   _displayFilm() {
     const { film } = this.state;
     if (film != undefined) {
@@ -52,6 +66,7 @@ class FilmDetail extends React.Component {
             source={{ uri: getImageFromApi(film.backdrop_path) }}
           />
           <Text style={styles.title_text}>{film.title}</Text>
+          <Button title="Favoris" onPress={() => this._toogleFavorite()} />
           <Text style={styles.description_text}>{film.overview}</Text>
           <Text style={styles.default_text}>
             Sorti le {moment(new Date(film.release_date)).format("DD/MM/YYYY")}
@@ -87,7 +102,7 @@ class FilmDetail extends React.Component {
   }
 
   render() {
-    console.log("FilmDetail props", this.props);
+    // console.log("FilmDetail props", this.props);
     return (
       <View style={styles.main_container}>
         {this._displayLoading()}
