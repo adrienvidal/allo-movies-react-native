@@ -9,6 +9,7 @@ import {
   ScrollView,
   Image,
   Button,
+  TouchableOpacity,
 } from "react-native";
 import { getFilmDetailFromApi, getImageFromApi } from "../API/TMDBApi";
 import moment from "moment";
@@ -56,6 +57,20 @@ class FilmDetail extends React.Component {
     console.log("this.props.favoritesFilm", this.props.favoritesFilm);
   }
 
+  _displayFavoriteImage() {
+    var sourceImage = require("../Images/ic_favorite_border.png");
+
+    if (
+      this.props.favoritesFilm.findIndex(
+        (item) => item.id === this.state.film.id
+      ) !== -1
+    ) {
+      sourceImage = require("../Images/ic_favorite.png");
+    }
+
+    return <Image source={sourceImage} style={styles.favorite_image} />;
+  }
+
   _displayFilm() {
     const { film } = this.state;
     if (film != undefined) {
@@ -66,7 +81,12 @@ class FilmDetail extends React.Component {
             source={{ uri: getImageFromApi(film.backdrop_path) }}
           />
           <Text style={styles.title_text}>{film.title}</Text>
-          <Button title="Favoris" onPress={() => this._toogleFavorite()} />
+          <TouchableOpacity
+            style={styles.favorite_container}
+            onPress={() => this._toogleFavorite()}
+          >
+            {this._displayFavoriteImage()}
+          </TouchableOpacity>
           <Text style={styles.description_text}>{film.overview}</Text>
           <Text style={styles.default_text}>
             Sorti le {moment(new Date(film.release_date)).format("DD/MM/YYYY")}
@@ -115,6 +135,13 @@ class FilmDetail extends React.Component {
 const styles = StyleSheet.create({
   main_container: {
     flex: 1,
+  },
+  favorite_container: {
+    alignItems: "center",
+  },
+  favorite_image: {
+    width: 40,
+    height: 40,
   },
   loading_container: {
     position: "absolute",
