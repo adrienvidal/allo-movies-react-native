@@ -10,6 +10,8 @@ import {
   FlatList,
 } from "react-native";
 
+import { connect } from "react-redux";
+
 // import films from "../Helpers/filmsData";
 import FilmItem from "./FilmItem";
 
@@ -74,6 +76,10 @@ class Search extends React.Component {
     this.props.navigation.navigate("FilmDetails", { idFilm: idFilm });
   };
 
+  _isFavorite(id) {
+    return this.props.favoritesFilm.findIndex((item) => item.id === id) !== -1;
+  }
+
   render() {
     return (
       <View style={styles.main_container}>
@@ -103,6 +109,7 @@ class Search extends React.Component {
             <FilmItem
               film={item}
               displayDetailForFilm={this._displayDetailForFilm}
+              isFavorite={this._isFavorite(item.id)}
             />
           )}
         />
@@ -135,4 +142,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Search;
+const mapStateToProps = (state) => {
+  return {
+    favoritesFilm: state.favoritesFilm,
+  };
+};
+
+// export default FilmDetail;
+export default connect(mapStateToProps)(Search);

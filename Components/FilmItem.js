@@ -5,18 +5,15 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
 import { getImageFromApi } from "../API/TMDBApi";
 
-import { connect } from "react-redux";
-
 class FilmItem extends React.Component {
   _displayFavoriteImage() {
-    const { film } = this.props;
+    const { isFavorite } = this.props;
     var sourceImage = require("../Images/ic_favorite.png");
 
-    if (
-      this.props.favoritesFilm.findIndex((item) => item.id === film.id) !== -1
-    ) {
+    if (isFavorite == true) {
       return <Image source={sourceImage} style={styles.favorite_image} />;
     }
+  
   }
 
   render() {
@@ -104,11 +101,5 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => {
-  return {
-    favoritesFilm: state.favoritesFilm,
-  };
-};
-
 // export default FilmDetail;
-export default connect(mapStateToProps)(FilmItem);
+export default FilmItem;
