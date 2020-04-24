@@ -5,7 +5,20 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
 import { getImageFromApi } from "../API/TMDBApi";
 
+import { connect } from "react-redux";
+
 class FilmItem extends React.Component {
+  _displayFavoriteImage() {
+    const { film } = this.props;
+    var sourceImage = require("../Images/ic_favorite.png");
+
+    if (
+      this.props.favoritesFilm.findIndex((item) => item.id === film.id) !== -1
+    ) {
+      return <Image source={sourceImage} style={styles.favorite_image} />;
+    }
+  }
+
   render() {
     const { film, displayDetailForFilm } = this.props;
     return (
@@ -19,7 +32,10 @@ class FilmItem extends React.Component {
         />
         <View style={styles.content_container}>
           <View style={styles.header_container}>
-            <Text style={styles.title_text}>{film.title}</Text>
+            <Text style={styles.title_text}>
+              {this._displayFavoriteImage()}
+              {film.title}
+            </Text>
             <Text style={styles.vote_text}>{film.vote_average}</Text>
           </View>
           <View style={styles.description_container}>
@@ -56,6 +72,10 @@ const styles = StyleSheet.create({
     flex: 3,
     flexDirection: "row",
   },
+  favorite_image: {
+    width: 20,
+    height: 20,
+  },
   title_text: {
     fontWeight: "bold",
     fontSize: 20,
@@ -84,4 +104,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FilmItem;
+const mapStateToProps = (state) => {
+  return {
+    favoritesFilm: state.favoritesFilm,
+  };
+};
+
+// export default FilmDetail;
+export default connect(mapStateToProps)(FilmItem);
