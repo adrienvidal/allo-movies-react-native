@@ -7,23 +7,12 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  Animated,
-  Dimensions,
 } from "react-native";
 import { getImageFromApi } from "../API/TMDBApi";
 
+import FadeIn from "../Animations/FadeIn";
+
 class FilmItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      positionLeft: new Animated.Value(Dimensions.get("window").width),
-    };
-  }
-
-  componentDidMount() {
-    Animated.spring(this.state.positionLeft, { toValue: 0 }).start();
-  }
-
   _displayFavoriteImage() {
     if (this.props.isFilmFavorite) {
       // Si la props isFilmFavorite vaut true, on affiche le 🖤
@@ -39,7 +28,7 @@ class FilmItem extends React.Component {
   render() {
     const { film, displayDetailForFilm } = this.props;
     return (
-      <Animated.View style={{ left: this.state.positionLeft }}>
+      <FadeIn>
         <TouchableOpacity
           style={styles.main_container}
           onPress={() => displayDetailForFilm(film.id)}
@@ -64,7 +53,7 @@ class FilmItem extends React.Component {
             </View>
           </View>
         </TouchableOpacity>
-      </Animated.View>
+      </FadeIn>
     );
   }
 }
