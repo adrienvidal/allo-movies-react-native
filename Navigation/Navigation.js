@@ -7,13 +7,30 @@ import FilmDetail from "../Components/FilmDetail";
 import Favorites from "../Components/Favorites";
 
 const Stack = createStackNavigator();
-function MyStack() {
+function SearchStackNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Search"
         component={Search}
         options={{ title: "Rechercher" }}
+      />
+      <Stack.Screen
+        name="FilmDetail"
+        component={FilmDetail}
+        options={{ title: "Film Détails" }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function FavoritesStackNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Favorites"
+        component={Favorites}
+        options={{ title: "Favoris" }}
       />
       <Stack.Screen
         name="FilmDetail"
@@ -48,12 +65,12 @@ function MoviesTabNavigator() {
     >
       <Tab.Screen
         name="Search"
-        component={MyStack}
+        component={SearchStackNavigator}
         options={{ title: "Rechercher" }}
       />
       <Tab.Screen
         name="Favorites"
-        component={Favorites}
+        component={FavoritesStackNavigator}
         options={{ title: "Favoris" }}
       />
     </Tab.Navigator>
