@@ -3,6 +3,7 @@
 import React from "react";
 import {
   StyleSheet,
+  Share,
   View,
   Text,
   ActivityIndicator,
@@ -10,6 +11,7 @@ import {
   Image,
   Button,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import { getFilmDetailFromApi, getImageFromApi } from "../API/TMDBApi";
 import moment from "moment";
@@ -32,6 +34,29 @@ class FilmDetail extends React.Component {
         isLoading: false,
       });
     });
+  }
+
+  _shareFilm() {
+    const { film } = this.state;
+    Share.share({ title: film.title, message: film.overview });
+  }
+
+  _displayFloatingActionButton() {
+    const { film } = this.state;
+    var sourceImage = require("../Images/ic_share.png");
+
+    if (film != undefined && Platform.OS === "android") {
+      return (
+        <TouchableOpacity
+          style={styles.share_touchable_floatingactionbutton}
+          onPress={() => {
+            this._shareFilm();
+          }}
+        >
+          <Image source={sourceImage} style={styles.share_image} />
+        </TouchableOpacity>
+      );
+    }
   }
 
   _displayLoading() {
@@ -127,12 +152,22 @@ class FilmDetail extends React.Component {
       <View style={styles.main_container}>
         {this._displayLoading()}
         {this._displayFilm()}
+        {this._displayFloatingActionButton()}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  share_touchable_floatingactionbutton: {
+    position: 'absolute',
+    right: 30,
+    bottom: 30,
+  },
+  share_image:{
+    width: 60,
+    height: 60,
+  },
   main_container: {
     flex: 1,
   },
