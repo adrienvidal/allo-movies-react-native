@@ -49,7 +49,7 @@ class FilmItem extends React.Component {
               </Text>
             </View>
             <View style={styles.date_container}>
-              <Text style={styles.date_text}>Sorti le 13/12/2017</Text>
+              <Text style={styles.date_text}>Sorti le {film.release_date}</Text>
             </View>
           </View>
         </TouchableOpacity>

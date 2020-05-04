@@ -23,11 +23,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.yourcompany.yourappname",
+      "bundleIdentifier": "com.webnrolls.allomovies",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.yourcompany.yourappname",
+      "package": "com.webnrolls.allomovies",
       "versionCode": 1
     }
   }

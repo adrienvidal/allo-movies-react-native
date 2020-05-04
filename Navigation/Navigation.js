@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Search from "../Components/Search";
 import FilmDetail from "../Components/FilmDetail";
 import Favorites from "../Components/Favorites";
+import News from "../Components/News"
 
 const Stack = createStackNavigator();
 function SearchStackNavigator() {
@@ -41,6 +42,23 @@ function FavoritesStackNavigator() {
   );
 }
 
+function NewsStackNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="News"
+        component={News}
+        options={{ title: "Les derniers films" }}
+      />
+      <Stack.Screen
+        name="FilmDetail"
+        component={FilmDetail}
+        options={{ title: "Film Détails" }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 const Tab = createBottomTabNavigator();
 function MoviesTabNavigator() {
   return (
@@ -52,6 +70,8 @@ function MoviesTabNavigator() {
             sourceImage = require("../Images/ic_search.png");
           } else if (route.name === "Favorites") {
             sourceImage = require("../Images/ic_favorite.png");
+          } else if (route.name === "News") {
+            sourceImage = require("../Images/ic_news.png");
           }
 
           return <Image source={sourceImage} style={styles.favorite_image} />;
@@ -72,6 +92,11 @@ function MoviesTabNavigator() {
         name="Favorites"
         component={FavoritesStackNavigator}
         options={{ title: "Favoris" }}
+      />
+      <Tab.Screen
+        name="News"
+        component={NewsStackNavigator}
+        options={{ title: "News" }}
       />
     </Tab.Navigator>
   );
